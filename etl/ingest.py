@@ -143,7 +143,7 @@ if __name__ == "__main__":
 
     filename_to_use = DEFAULT_FILENAME
     args = parser.parse_args()
-    # Note: I am only add the default values here and adding it to the version control for simplicity of testing
+    # Note: I am only adding the default values here and adding it to the version control for simplicity of testing
     # In a real world scenario, we would use .env file to store these values
     # and the .env file would be added to .gitignore. Also, this is a free account for testing purposes
     host = config("SFTP_HOST", "us-east-1.sftpcloud.io")
@@ -161,4 +161,4 @@ if __name__ == "__main__":
     }
 
     pipeline = IngestionPipeline(SFTP_CONFIG)
-    pipeline.run(filename=args.filename)
+    pipeline.run(filename=filename_to_use)
