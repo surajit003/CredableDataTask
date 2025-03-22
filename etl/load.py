@@ -7,7 +7,7 @@ from decouple import config
 
 logger = structlog.get_logger()
 
-# PostgreSQL Connection Config
+# PostgresSQL Connection Config
 DATABASE_CONFIG = {
     "NAME": config("DB_NAME", default="creadable_db"),
     "USER": config("DB_USER", default="postgres"),
