@@ -73,7 +73,7 @@ docker exec -it django_etl_app python manage.py test
 
 Run the ETL tests:
 ```
-docker exec -it django_etl_app  python -m scripts.etl.tests.test_transform
+docker exec -it django_etl_app  python -m etl.tests.test_transform
 ```
 
 ## 📘 API: Get Customers
