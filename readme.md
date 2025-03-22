@@ -145,3 +145,93 @@ Then you can run the ETL script:
 ```
 python etl/ingest.py --filename customers-100.csv
 ```
+
+---
+High level overview of the Project for scale
+
+### Data Ingestion Layer
+🔹 Purpose
+Automate the retrieval of files from external sources (e.g., SFTP servers), support multiple file formats (CSV, JSON),
+and implement robust failure handling.
+
+- Supported Formats
+Primary: CSV, JSON
+
+- Schema Validation
+Early schema enforcement and validation to catch malformed files before processing.
+
+- Error Handling & Monitoring
+Retry mechanisms with exponential backoff.
+
+Integration with Slack, email, and Sentry for failure alerts.
+
+Audit logs capturing filename, status, timestamps, and error traces.
+
+### Data Processing Layer
+🔹 Purpose
+- Transform raw ingested data into clean, structured, and business-ready datasets.
+
+🔹 Tools & Frameworks
+🚀 Apache Spark
+- Distributed processing engine for large-scale data.
+
+Handles heavy transformations, joins, aggregations, and batch jobs efficiently.
+
+⚡ Polars (Python)
+In-memory, lightning-fast columnar processing.
+
+Ideal for sampling, validation, and small- to mid-sized data curation.
+
+🔹 Transformations
+- Flatten nested structures.
+
+- Standardize field names and formats (dates, currencies, etc.).
+
+- Perform deduplication, null handling, and outlier detection.
+
+🔹 Data Quality Rules
+- Rule-based validations (field constraints, regex patterns, value ranges).
+
+- Quarantine invalid records with reason logs.
+
+- Configurable thresholds for record rejection vs. warning.
+
+3. Data Storage Layer
+🔹 Purpose
+Store curated datasets in a scalable, queryable, and cost-effective architecture.
+
+🔹 Architecture
+🗂️ Amazon S3
+Central data lake for storing:
+
+raw/ – Original ingested files
+
+processed/ – Cleaned intermediate outputs
+
+curated/ – Business-ready, enriched datasets
+
+🧊 Apache Iceberg
+ACID-compliant table format over S3.
+
+Key features:
+
+- Time travel and snapshot isolation
+
+- Schema evolution without rewriting full datasets
+
+- Partition pruning and hidden metadata columns for query efficiency
+
+🗃️ Catalog Integration
+Table metadata managed via AWS Glue Data Catalog or Hive Metastore.
+
+- Enables schema discovery by Spark and Athena.
+
+- Automated updates after each job run.
+
+4. Data Query Layer
+🔹 Purpose
+Expose curated datasets for analytics, business reporting, and external access.
+
+🔹 Tools
+🔍 Amazon Athena
+Serverless SQL queries on Iceberg tables over S3.
