@@ -126,14 +126,31 @@ class IngestionPipeline:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run SFTP ingestion pipeline")
+    DEFAULT_FILENAME = "customers-100.csv"
+
     parser.add_argument("--filename", help="Name of the file to download from SFTP", required=False)
 
     args = parser.parse_args()
-    host = config("SFTP_HOST")
+
+    # For testing purposes, we are using the default filename because that's what the SFTP server has for testing
+    if args.filename:
+        if args.filename != DEFAULT_FILENAME:
+            print(f"⚠️  Testing mode: Ignoring input filename '{args.filename}'. Using default: '{DEFAULT_FILENAME}'")
+        else:
+            print(f"✅ Using provided filename: {DEFAULT_FILENAME}")
+    else:
+        print(f"ℹ️ No filename provided. Using default: '{DEFAULT_FILENAME}'")
+
+    filename_to_use = DEFAULT_FILENAME
+    args = parser.parse_args()
+    # Note: I am only add the default values here and adding it to the version control for simplicity of testing
+    # In a real world scenario, we would use .env file to store these values
+    # and the .env file would be added to .gitignore. Also, this is a free account for testing purposes
+    host = config("SFTP_HOST", "us-east-1.sftpcloud.io")
     port = config("SFTP_PORT", cast=int, default=22)
-    username = config("SFTP_USERNAME")
-    password = config("SFTP_PASSWORD")
-    remote_folder = config("REMOTE_FOLDER")
+    username = config("SFTP_USERNAME", "b24cbee828db4abb9c77b8b66aa6de3b")
+    password = config("SFTP_PASSWORD", "O2c5qIVvruYX2ql1EEETC3I9pKG25RfF")
+    remote_folder = config("REMOTE_FOLDER", ".")
 
     SFTP_CONFIG = {
         "host": host,
