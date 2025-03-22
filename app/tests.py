@@ -15,14 +15,11 @@ class CustomerListViewTest(TestCase):
         self.client = APIClient()
         self.url = reverse("customer-list-view")
 
-        # Create test user and token
         self.user = User.objects.create_user(username="testuser", password="testpass")
         self.token = Token.objects.create(user=self.user)
 
-        # Add the token to the Authorization header
         self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
 
-        # Create test data
         self.customer1 = Customer.objects.create(
             index=1,
             customer_id="CUST001",

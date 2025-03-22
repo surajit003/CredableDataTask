@@ -26,9 +26,9 @@ structlog.configure(
 
 logger = structlog.get_logger()
 
-LOG_DIR = "logs"  # We could move this to .env. Keeping it here for simplicity
-DOWNLOAD_DIR = "downloads"  # We could move this to .env. Keeping it here for simplicity
-TRANSFORMED_DIR = "transformed"  # We could move this to .env. Keeping it here for simplicity
+LOG_DIR = "etl/logs"  # We could move this to .env. Keeping it here for simplicity
+DOWNLOAD_DIR = "etl/downloads"  # We could move this to .env. Keeping it here for simplicity
+TRANSFORMED_DIR = "etl/transformed"  # We could move this to .env. Keeping it here for simplicity
 
 os.makedirs(LOG_DIR, exist_ok=True)
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)

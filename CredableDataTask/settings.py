@@ -77,13 +77,15 @@ WSGI_APPLICATION = "CredableDataTask.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+IS_DOCKER = os.environ.get("IS_DOCKER", False)
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": config("DB_NAME", default=""),
         "USER": config("DB_USER", default=""),
         "PASSWORD": config("DB_PASSWORD", default=""),
-        "HOST": config("DB_ENDPOINT", default=""),
+        "HOST": config("DB_HOST", default="db" if IS_DOCKER else "localhost"),
         "PORT": config("DB_PORT", default=""),
     }
 }

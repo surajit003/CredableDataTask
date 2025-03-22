@@ -5,6 +5,7 @@ paramiko==3.5.1
 polars==1.25.2
 pre_commit==4.2.0
 psycopg2-binary==2.9.10
+python-decouple==3.8
 pytz
 structlog==25.2.0
 tenacity==9.0.0

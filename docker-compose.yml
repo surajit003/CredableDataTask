@@ -5,19 +5,20 @@ services:
     image: postgres:14
     container_name: postgres_db
     restart: always
-    environment:
-      POSTGRES_DB: creadable_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mom12345
+    env_file:
+      - .docker-env
     ports:
-      - "5432:5432"
+      - ":5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
   web:
     build: .
     container_name: django_etl_app
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate &&
+             python create_superuser.py &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
     ports:
@@ -25,7 +26,10 @@ services:
     depends_on:
       - db
     env_file:
-      - .env
+      - .docker-env
+    environment:
+      IS_DOCKER: true
+      DB_HOST: db
 
 volumes:
   pgdata:
