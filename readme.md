@@ -58,11 +58,11 @@ PostgresSQL exposed on localhost:5432
 
 ## 🔄 Run ETL Pipeline
 There is a sample CSV file in scripts/downloads which has been used for building the ETL pipeline.
-The file is named `customers.csv` and can be used to test the ETL pipeline.
+The file is named `customers-100.csv` and can be used to test the ETL pipeline.
 
 Run the full ingestion pipeline:
 ```
-docker exec -it django_etl_app python scripts/etl/ingest.py
+docker exec -it django_etl_app python etl/ingest.py --filename customers-100.csv
 ```
 
 ## 🧪 Testing
