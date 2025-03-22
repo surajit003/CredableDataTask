@@ -81,13 +81,12 @@ GET /api/customers/
 Fetch a paginated, filterable, and searchable list of customers.
 
 ## 🔐 Auth
-Currently, open — no authentication or permissions applied.
-
-We can easily lock it down with DRF’s TokenAuthentication or IsAuthenticated.
+Using the simple `Token` authentication provided by Django REST Framework.
 
 ### 📥 Example Request
 ```
-GET /api/customers/?search=alice&country=USA&ordering=-subscription_date
+curl -X GET "http://localhost:8000/api/customers/?search=alice&country=USA&ordering=-subscription_date" \
+  -H "Authorization: Token abc123"
 ```
 
 ### 📤 Example Response
@@ -115,3 +114,8 @@ GET /api/customers/?search=alice&country=USA&ordering=-subscription_date
   ]
 }
 ```
+
+### Notes:
+By default, there is a single user created with the following credentials:
+- Username: `admin`
+- Password: `admin123`
