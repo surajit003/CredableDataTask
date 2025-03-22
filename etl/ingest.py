@@ -135,11 +135,13 @@ if __name__ == "__main__":
     # For testing purposes, we are using the default filename because that's what the SFTP server has for testing
     if args.filename:
         if args.filename != DEFAULT_FILENAME:
-            print(f"⚠️  Testing mode: Ignoring input filename '{args.filename}'. Using default: '{DEFAULT_FILENAME}'")
+            logger.warning(
+                f"Testing mode: Ignoring input filename '{args.filename}'. Using default: '{DEFAULT_FILENAME}'"
+            )
         else:
-            print(f"✅ Using provided filename: {DEFAULT_FILENAME}")
+            logger.info(f"Using provided filename: {DEFAULT_FILENAME}")
     else:
-        print(f"ℹ️ No filename provided. Using default: '{DEFAULT_FILENAME}'")
+        logger.info(f"No filename provided. Using default: '{DEFAULT_FILENAME}'")
 
     filename_to_use = DEFAULT_FILENAME
     args = parser.parse_args()
