@@ -119,3 +119,29 @@ curl -X GET "http://localhost:8000/api/customers/?search=alice&country=USA&order
 By default, there is a single user created with the following credentials:
 - Username: `admin`
 - Password: `admin123`
+
+### Running outside Docker
+
+### Django
+To run the Django server outside of Docker, you will need to install the dependencies:
+```
+pip install -r requirements.txt
+```
+
+Then you can run the Django server:
+```
+python manage.py migrate
+python manage.py runserver
+```
+
+
+### ETL
+To run the ETL pipeline outside of Docker, you will need to install the dependencies:
+```
+pip install -r requirements.txt
+```
+
+Then you can run the ETL script:
+```
+python etl/ingest.py --filename customers-100.csv
+```
