@@ -3,7 +3,7 @@ from datetime import datetime
 
 import polars as pl
 
-from scripts.etl.transform import DataTransformer
+from etl.transform import DataTransformer
 
 
 class TestDataTransformer(unittest.TestCase):
